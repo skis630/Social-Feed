@@ -24,9 +24,45 @@
         <action-btn
           actionType="comment"
           iconClass="far fa-comment"
+          :maxCountDisplay="102"
+          @clickedComment="showComments = !showComments"
+          ref="commentBtn"
         ></action-btn>
-        <action-btn actionType="like" iconClass="far fa-heart"></action-btn>
+        <action-btn
+          actionType="like"
+          iconClass="far fa-heart"
+          :maxCountDisplay="102"
+        ></action-btn>
       </md-card-content>
+
+      <md-divider></md-divider>
+      <div v-show="showComments" class="comments">
+        <div
+          align="left"
+          v-for="(comment, index) in comments"
+          :key="index"
+          class="comment"
+        >
+          {{ comment }}
+        </div>
+        <md-field>
+          <md-textarea
+            v-model="commentInput"
+            required
+            placeholder="Write your comment here"
+            type="text"
+            @change="appendComment"
+          >
+          </md-textarea>
+          <md-button
+            :disabled="commentInput.length === 0"
+            @click="appendComment"
+            class="add-comment"
+          >
+            <md-icon>send</md-icon>
+          </md-button>
+        </md-field>
+      </div>
     </md-card>
   </div>
 </template>
@@ -48,8 +84,18 @@ export default {
   },
   data() {
     return {
-      badgeColor: "white"
+      comments: [],
+      showComments: false,
+      commentInput: "",
+      commentsCount: 0
     };
+  },
+  methods: {
+    appendComment() {
+      this.comments.push(this.commentInput);
+      this.commentInput = "";
+      this.$refs.commentBtn.count++;
+    }
   }
 };
 </script>
@@ -80,7 +126,18 @@ img {
   float: right !important;
   font-size: 20px;
 }
-.hidden {
-  background-color: rgba(255, 255, 255, 1) !important;
+.md-input {
+  padding: 5%;
+}
+.add-comment,
+.comment {
+  margin: auto;
+  padding: auto;
+}
+.comment {
+  padding: 2%;
+  margin: 2%;
+  border-radius: 5px;
+  background: rgba($color: #f7f3f3f8, $alpha: 1);
 }
 </style>

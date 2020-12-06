@@ -1,33 +1,31 @@
-import { render, screen } from '@testing-library/vue'
+import { render, screen } from "@testing-library/vue";
 
 import Home from "@/views/Home";
 
-
 describe("Test initial style and structure", () => {
-
   test("Has like and comment icons", () => {
-    const { container } = render(Home)
+    const { container } = render(Home);
 
-    expect(container.querySelector(".far.fa-heart")).not.toBe(null)
-    expect(container.querySelector(".far.fa-comment")).not.toBe(null)
-  })
+    expect(container.querySelector(".far.fa-heart")).not.toBe(null);
+    expect(container.querySelector(".far.fa-comment")).not.toBe(null);
+  });
 
   test("Has Sara and Gabriel users on cards", async () => {
-      const { container } = render(Home)
+    const { container } = render(Home);
 
-      screen.queryByText("Sara")
-      screen.queryByText("Gabriel")
-    });
+    screen.queryByText("Sara");
+    screen.queryByText("Gabriel");
+  });
 
   test("Has correct product and price tags", async () => {
-    render(Home)
+    render(Home);
 
     // product names
-    screen.queryByText("Brown Bear Cushion")
-    screen.queryByText("Mountain Fox Notebook")
+    screen.queryByText("Brown Bear Cushion");
+    screen.queryByText("Mountain Fox Notebook");
 
     // prices
-    screen.queryByText("18.90")
-    screen.queryByText("12.90")
-  })
-})
+    screen.queryByText("18.90");
+    screen.queryByText("12.90");
+  });
+});

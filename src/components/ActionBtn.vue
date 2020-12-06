@@ -1,13 +1,15 @@
 <template>
   <div class="action-btn" :title="tooltipTxt">
-    <md-button class="md-icon-button" @click="handleClick()">
+    <md-button
+      :class="actionType"
+      class="md-icon-button"
+      @click="handleClick()"
+    >
       <md-icon>
         <i :class="dataIconClass" :style="{ color: iconFill }">
-          <span
-            v-show="count >= 1 && count < maxCountDisplay"
-            class="btn"
-            >{{ count }}</span
-          >
+          <span v-show="count >= 1 && count < maxCountDisplay" class="btn">{{
+            count
+          }}</span>
         </i></md-icon
       >
     </md-button>
@@ -20,7 +22,7 @@ export default {
   data() {
     return {
       count: 0,
-      maxCountDisplay: 102,
+      //   maxCountDisplay: 102,
       iconFill: "none",
       tooltipTxt: "",
       dataIconClass: ""
@@ -28,24 +30,25 @@ export default {
   },
   props: {
     actionType: String,
-    iconClass: String
+    iconClass: String,
+    maxCountDisplay: Number
   },
-  beforeMount () {
-      this.dataIconClass = this.iconClass
+  beforeMount() {
+    this.dataIconClass = this.iconClass;
   },
   methods: {
     handleClick() {
-      this.increment();
       if (this.count > this.maxCountDisplay) {
-        this.tooltipTxt = `${this.count} ${this.actionType}s`
+        this.tooltipTxt = `${this.count} ${this.actionType}s`;
       }
 
       switch (this.actionType) {
         case "like":
-          this.toggleIconFill()
+          this.increment();
+          this.toggleIconFill();
           break;
         case "comment":
-            this.$emit("clickedComment")
+          this.$emit("clickedComment");
           break;
         default:
       }
@@ -54,12 +57,12 @@ export default {
       this.count++;
     },
     toggleIconFill() {
-        if (this.count === 1) {
-            this.dataIconClass = "fas fa-heart"
-            this.iconFill = "gray"
-        } else {
-            this.iconFill = "red"
-        }
+      if (this.count === 1) {
+        this.dataIconClass = "fas fa-heart";
+        this.iconFill = "gray";
+      } else {
+        this.iconFill = "red";
+      }
     }
   }
 };
