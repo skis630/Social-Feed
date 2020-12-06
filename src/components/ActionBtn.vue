@@ -1,10 +1,9 @@
 <template>
-  <div class="action-btn">
+  <div class="action-btn" :title="tooltipTxt">
     <md-button class="md-icon-button" @click="handleClick()">
       <md-icon>
-        <i :class="iconClass" :style="{ color: iconFill }">
+        <i :class="dataIconClass" :style="{ color: iconFill }">
           <span
-            :title="tooltipTxt"
             v-show="count >= 1 && count < maxCountDisplay"
             class="btn"
             >{{ count }}</span
@@ -24,6 +23,7 @@ export default {
       maxCountDisplay: 102,
       iconFill: "none",
       tooltipTxt: "",
+      dataIconClass: ""
     };
   },
   props: {
@@ -31,35 +31,34 @@ export default {
     iconClass: String
   },
   beforeMount () {
-    //   this.dataIconClass = this.iconClass
+      this.dataIconClass = this.iconClass
   },
   methods: {
     handleClick() {
       this.increment();
+      if (this.count > this.maxCountDisplay) {
+        this.tooltipTxt = `${this.count} ${this.actionType}s`
+      }
 
       switch (this.actionType) {
         case "like":
           this.toggleIconFill()
           break;
         case "comment":
+            this.$emit("clickedComment")
           break;
         default:
-          break;
       }
     },
     increment() {
       this.count++;
     },
-    toggleComments() {},
     toggleIconFill() {
         if (this.count === 1) {
-            this.iconClass = "fas fa-heart"
+            this.dataIconClass = "fas fa-heart"
             this.iconFill = "gray"
         } else {
             this.iconFill = "red"
-            if (this.count > this.maxCountDisplay) {
-                this.tooltipTxt = `${this.count} ${this.actionType}s`
-            }
         }
     }
   }

@@ -32,15 +32,11 @@
 </template>
 
 <script>
-// import LikeBtn from "./LikeBtn";
-// import CommentsBtn from "./CommentsBtn.vue";
 import ActionBtn from "./ActionBtn";
 
 export default {
   name: "Card",
   components: {
-    // LikeBtn,
-    // CommentsBtn,
     ActionBtn
   },
   props: {
@@ -48,7 +44,7 @@ export default {
     user: String,
     productImgUrl: String,
     desc: String,
-    price: Number
+    price: String
   },
   data() {
     return {
