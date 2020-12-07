@@ -11,9 +11,9 @@ describe("Test initial style and structure", () => {
   });
 
   test("Has Sara and Gabriel users on cards", async () => {
-    const { container } = render(Home);
+    render(Home);
 
-    screen.queryByText("Sara");
+    screen.queryAllByText("Sara");
     screen.queryByText("Gabriel");
   });
 

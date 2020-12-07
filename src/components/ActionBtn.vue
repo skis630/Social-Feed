@@ -22,7 +22,6 @@ export default {
   data() {
     return {
       count: 0,
-      //   maxCountDisplay: 102,
       iconFill: "none",
       tooltipTxt: "",
       dataIconClass: ""
@@ -51,6 +50,7 @@ export default {
           this.$emit("clickedComment");
           break;
         default:
+          break;
       }
     },
     increment() {

@@ -1,5 +1,5 @@
 <template>
-  <div id="card">
+  <div class="card">
     <md-card>
       <md-card-header>
         <md-avatar>
@@ -47,16 +47,17 @@
         </div>
         <md-field>
           <md-textarea
+            class="comment-input"
             v-model="commentInput"
             required
             placeholder="Write your comment here"
             type="text"
-            @change="appendComment"
           >
           </md-textarea>
           <md-button
+            title="Add comment"
             :disabled="commentInput.length === 0"
-            @click="appendComment"
+            @click="appendComment()"
             class="add-comment"
           >
             <md-icon>send</md-icon>
